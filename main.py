@@ -1,11 +1,12 @@
 import sqlite3
 import time
 import sys
+from colorama import Fore
 
 def login():
     while True:
-        username = input("Enter your username:")
-        password = input("Enter your password:")
+        username = input(f"{Fore.WHITE}Enter your username:")
+        password = input(f"{Fore.WHITE}Enter your password:")
         with sqlite3.connect("main.db") as db:
             cursor = db.cursor()
         find_user = ("SELECT * FROM info WHERE username = ? AND password = ?")
@@ -14,14 +15,14 @@ def login():
 
         if results:
             for i in results:
-                print("Welcome "+i[2])
+                print(f"{Fore.BLUE}Welcome "+i[2])
             break
 
         else:
-            print("Username and password not recognised")
-            again = input("Do you want to try again (y/n): ")
+            print(f"[{Fore.RED}-{Fore.WHITE}]Username and password not recognised")
+            again = input(f"{Fore.WHITE}Do you want to try again (y/n): ")
             if again.lower() == "n":
-                print("Goodbye")
+                print(f"{Fore.WHITE}[{Fore.RED}-{Fore.WHITE}]Goodbye")
                 time.sleep(1)
                 # return(exit)
                 break
@@ -30,25 +31,25 @@ def login():
 def newUser():
     found = 0
     while found == 0:
-        username = input("Please enter a username: ")
+        username = input(f"{Fore.WHITE}Please enter a username: ")
         with sqlite3.connect("main.db") as db:
             cursor = db.cursor()
         findUser = ("SELECT * FROM info WHERE username = ?")
         cursor.execute(findUser,[(username)])
 
         if cursor.fetchall():
-            print("Username Taken, please try again with another.")
+            print(f"{Fore.WHITE}[{Fore.RED}-{Fore.WHITE}]Username Taken, please try again with another.")
         else:
             found = 1
 
-        firstName = input("Enter your first name: ")
-        surname = input("Enter your surname: ")
-        password = input("Enter your password: ")
-        password1 = input("Please reenter your password: ")
+        firstName = input(f"{Fore.WHITE}Enter your first name: ")
+        surname = input(f"{Fore.WHITE}Enter your surname: ")
+        password = input(f"{Fore.WHITE}Enter your password: ")
+        password1 = input(f"{Fore.WHITE}Please reenter your password: ")
         while password != password1:
-            print("Your passwords didn't match, please try again.")
-            password = input("Enter your password: ")
-            password1 = input("Please reenter your password: ")
+            print(f"{Fore.RED}[-]{Fore.WHITE}Your passwords didn't match, please try again.")
+            password = input(f"{Fore.WHITE}Enter your password: ")
+            password1 = input(f"{Fore.WHITE}Please reenter your password: ")
         insertData = '''INSERT INTO info(username,firstname,surname,password)
         VALUES(?,?,?,?)'''
         cursor.execute(insertData,[(username),(firstname),(surname),(password)])
@@ -56,7 +57,7 @@ def newUser():
 
 def menu():
     while True:
-        print("Welcome to my system ")
+        print(f"{Fore.WHITE}Welcome to my system")
         menu =('''
         1 = Create new User
         2 = Login to system
@@ -69,9 +70,9 @@ def menu():
         elif userChoice == "2":
             login()
         elif userChoice == "3":
-            print("Goodbye")
+            print(f"{Fore.RED}Goodbye")
             sys.exit()
         else:
-            print("Command not recognised: ")
+            print(f"{Fore.RED}[-]{Fore.WHITE}Command not recognised")
 
 menu()
