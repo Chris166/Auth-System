@@ -12,11 +12,5 @@ surname VARCHAR(20) NOT NULL,
 password VARCHAR(20) NOT NULL);
 ''')
 
-cursor.execute("""
-INSERT INTO info(username,firstname,surname,password)
-VALUES("test_User","Bob","Smith","MrBob")
-""")
-db.commit()
-
 cursor.execute("SELECT * FROM info")
 print(cursor.fetchall())
