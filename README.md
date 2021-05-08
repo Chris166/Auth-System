@@ -1,2 +1,2 @@
 # User Login System With Python
-Me and my friend working on advanced login system with python.
+This is Advanced User Login/Register system that is made with python.
