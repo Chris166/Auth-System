@@ -1,6 +1,6 @@
 import sqlite3
 import time
-
+import sys
 
 def login():
     while True:
@@ -54,4 +54,24 @@ def newUser():
         cursor.execute(insertData,[(username),(firstname),(surname),(password)])
         db.commit()
 
-newUser()
+def menu():
+    while True:
+        print("Welcome to my system ")
+        menu =('''
+        1 = Create new User
+        2 = Login to system
+        3 = Exit\n''')
+
+        userChoice = input(menu)
+
+        if userChoice == "1":
+            newUser()
+        elif userChoice == "2":
+            login()
+        elif userChoice == "3":
+            print("Goodbye")
+            sys.exit()
+        else:
+            print("Command not recognised: ")
+
+menu()
