@@ -2,7 +2,6 @@ import sqlite3
 import time
 import sys
 from colorama import Fore
-from secrets import compare_digest
 
 
 def login():
@@ -11,8 +10,8 @@ def login():
         password = input(f"{Fore.WHITE}Enter your password:")
         with sqlite3.connect("main.db") as db:
             cursor = db.cursor()
-        find_user = "SELECT * FROM info WHERE username = ? AND password = ?"
-        cursor.execute(find_user, [(username), (password)])
+        find_user = ("SELECT * FROM info WHERE username = ? AND password = ?")
+        cursor.execute(find_user, [username, password])
         results = cursor.fetchall()
 
         if results:
@@ -48,7 +47,7 @@ def newUser():
         surname = input(f"{Fore.WHITE}Enter your surname: ")
         password = input(f"{Fore.WHITE}Enter your password: ")
         password1 = input(f"{Fore.WHITE}Please reenter your password: ")
-        while compare_digest(password, password1):
+        while password != password1:
             print(f"{Fore.RED}[-]{Fore.WHITE}Your passwords didn't match, please try again.")
             password = input(f"{Fore.WHITE}Enter your password: ")
             password1 = input(f"{Fore.WHITE}Please reenter your password: ")
