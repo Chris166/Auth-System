@@ -1,2 +1,2 @@
-# User Login System With Python
-This is Advanced User Login/Register system that is made with python.
+# Auth System With Python
+This is simple Auth system that stores the data in sqlite database.
